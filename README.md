@@ -82,10 +82,9 @@ const RouletteSchema= new Schema({
 | :----: | --------------------------- | --------------------------------------------------- |---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | POST   | /signup                     | const { username, email, password } = req.body      | json({user: user})                                                    | Registra al usuario en la base de datos y devuelve el usuario conectado.        |
 | POST   | /login                      | const { email, password } = req.body                | json({authToken: authToken})                                          | logea al usuario ya registrado                                        |
- GET    | /profile                    | -                                                   | json({thisUser})                                                      | Devuelve el currentUser Object|
- GET    | /task                    | const { title, checked,value}= req.params                                                   | json({thisUserTask})                                                      | Devuelve las tasks objects del currentUser
- POST    | /task                  | -                                                   | json({thisTaskAdd})                                                      | 
- Añadir una tarea
+ GET    | /profile                    | -                                                   | json({UserProfile})                                                      | Devuelve el currentUser Object|
+ GET    | /task                    | const { title, checked,value}= req.params                                                   | json({UserTask})                                                      | Devuelve las tasks objects del currentUser
+POST    | /task                    | const { title, checked,value}= req.params                                                   | json({TaskAdd})                                                      | Añadir una tarea
  | POST   | /task/:id/edit                    | const { title, checked,value}= req.params      | json({taskId})                                                    | Editar una tarea        |
 
 ---
