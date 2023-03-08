@@ -3,7 +3,9 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const games = new Schema(
     {
-        
+        minigames: [
+            { type: Schema.Types.ObjectId }
+        ],
         hasBeenPlayed: {
             type: Boolean,
             default: false,
@@ -11,7 +13,7 @@ const games = new Schema(
         user: [
             { type: Schema.Types.ObjectId }
         ],
-        points:{
+        points: {
             type: Number
         }
     },
