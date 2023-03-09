@@ -16,7 +16,7 @@ const taskSchema = new Schema(
         },
         value: {
             type: Number,
-            required: true
+            required: false
         },
     },
 );
