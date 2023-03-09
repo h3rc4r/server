@@ -50,26 +50,31 @@ const UserSchema = new Schema({
 Couple.model.js
 ````js
 const CoupleSchema= new Schema({
-    users: [{ type:Schema.types.ObjectId}],
-    task:[{ type:Schema.types.ObjectId}],
-    coupleName: { type: String}
-})
+        users: [{type: Schema.Types.ObjectId}],
+        task: [{ type: Schema.Types.ObjectId }],
+        coupleName: { type: string,required: true}
+    })
 ````
 Tasks.model.js
 ````js
 const TaskSchema= new Schema({
-    title: { type: String},
-    checked: {type: Boolean, default: false}
-    value: { type: Number}
-})
+        title: {type: String, required: true},
+        checked: {type: Boolean,default: false},
+        user: {type: Schema.Types.ObjectId},
+        value: {type: Number,required: true}
+    })
 ````
-Roulette.model.js
+MiniJuego.model.js
 ````js
-const RouletteSchema= new Schema({
-    hasBeenPlayed: { type: Boolean, default: false},
-    user: [{ type: Schema.types.ObjectId}],
-    points: { type: Number}
-})
+const miniJuegoSchema= new Schema({
+        name: {type: String, enum: ["ruleta", "quePrefieres", "cuantoConoces"]},
+        hasBeenPlayed: {type: Boolean,default: false},
+        points: {type: Number},
+        pregunta: {type: String},
+        respuesta: {type: String},
+        user:{ type: Schema.Types.ObjectId },
+        opciones: [{type: String}]
+    })
 ````
 ## User roles
 | Role  | Capabilities                                                                                                                               | Property       |

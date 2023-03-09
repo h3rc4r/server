@@ -11,7 +11,8 @@ const coupleSchema = new Schema(
             { type: Schema.Types.ObjectId }
         ],
         coupleName: { 
-            type: string 
+            type: string,
+            required: true
         }
     },
 );
