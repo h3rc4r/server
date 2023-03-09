@@ -10,7 +10,13 @@ const taskSchema = new Schema(
         checked: {
             type: Boolean,
             default: false,
-            value: Number,
+        },
+        user: {
+            type: Schema.Types.ObjectId
+        },
+        value: {
+            type: Number,
+            required: true
         },
     },
 );
