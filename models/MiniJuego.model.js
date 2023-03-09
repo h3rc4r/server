@@ -7,7 +7,7 @@ const miniJuegoSchema = new Schema(
             type: String,
             enum: ["ruleta", "quePrefieres", "cuantoConoces"]
         },
-        
+
         hasBeenPlayed: {
             type: Boolean,
             default: false,
