@@ -4,13 +4,6 @@ const Couple = require("../models/Couple.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 
-// const nuevo_id = User.findOne({ name: userName })
-// .then(user => {
-//   const userId = user._id;
-//   console.log('User ID:', userId);
-// })
-// .catch(err => console.error(err));
-
 router.post("/new", isAuthenticated, (req, res, next) => {
   const {id, coupleName, userName } = req.body;
   User.findOne({ name: userName })
