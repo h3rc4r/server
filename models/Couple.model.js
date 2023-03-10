@@ -10,12 +10,8 @@ const coupleSchema = new Schema(
             
         ],
         task: [
-<<<<<<< HEAD
             { type: Schema.Types.ObjectId,
             ref:"Task" }
-=======
-            { type: Schema.Types.ObjectId, ref: "Tasks" }
->>>>>>> dev
         ],
         coupleName: { 
             type: String,
