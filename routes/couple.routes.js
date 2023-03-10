@@ -31,6 +31,7 @@ router.post("/new", isAuthenticated, (req, res, next) => {
 }
   )
 
+  //asdas
   // .then(foundUsers => {
   //   // Crear una instancia de pareja (couple) con los usuarios encontrados
   //   const couple = new Couple({ users: foundUsers, coupleName });
