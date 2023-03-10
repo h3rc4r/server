@@ -4,54 +4,31 @@ const Couple = require("../models/Couple.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 
-const nuevo_id = User.findOne({ name: userName })
-.then(user => {
-  const userId = user._id;
-  console.log('User ID:', userId);
-})
-.catch(err => console.error(err));
+// const nuevo_id = User.findOne({ name: userName })
+// .then(user => {
+//   const userId = user._id;
+//   console.log('User ID:', userId);
+// })
+// .catch(err => console.error(err));
 
 router.post("/new", isAuthenticated, (req, res, next) => {
-  const {users, coupleName, userName } = req.body;
-
+  const {id, coupleName, userName } = req.body;
   User.findOne({ name: userName })
-.then(user => {
-  const userId = user._id;
-  console.log('User ID:', userId);
-  return userId
-})
-
-.then(userId=>{
-  Couple.create({$push:{users:user.id}})
-  res.json(userId);
-
-
-
-
-}
-  )
-
-  // .then(foundUsers => {
-  //   // Crear una instancia de pareja (couple) con los usuarios encontrados
-  //   const couple = new Couple({ users: foundUsers, coupleName });
-  //   return couple.save();
-   
-  // })
-  
-  .then(savedCouple => {
-    res.json(savedCouple);
+  .then(user => {
+  return Couple.create({users:[id, user._id], coupleName})
+  })
+  .then((data)=>{
+  res.json(data);
+  return User.findByIdAndUpdate(id, {couple:data._id}, {new:true})
+  .populate("couple")
+  })
+  .then((data)=>{
+    return User.findByIdAndUpdate(data.couple.users[1], {couple: data.couple._id}, {new:true})
+  })
+  .then((data)=>{
+    console.log(data)
   })
   .catch(err => next(err));
 });
 
-router.put("/edit/:idCouple", isAuthenticated, (req, res, next) => {
-  const { idCouple } = req.params;
-  const { users, coupleName } = req.body;
-  Couple.findByIdAndUpdate(idCouple, { users, coupleName }, { new: true })
-    .then((result) => {
-      res.json(result);
-
-    })
-    .catch(err => next(err))
-})
 module.exports = router
