@@ -22,7 +22,7 @@ router.post("/new", isAuthenticated, (req, res, next) => {
 })
 
 .then(userId=>{
-  Couple.create({$push:{users:user.id}})
+  Couple.create({$push:{users:user.id,}})
   res.json(userId);
 
 

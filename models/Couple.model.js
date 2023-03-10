@@ -5,10 +5,13 @@ const coupleSchema = new Schema(
     {
         users: [
             {
-            type: Schema.Types.ObjectId}
+            type: Schema.Types.ObjectId,
+            ref:"User"},
+            
         ],
         task: [
-            { type: Schema.Types.ObjectId }
+            { type: Schema.Types.ObjectId,
+            ref:"Task" }
         ],
         coupleName: { 
             type: String,
