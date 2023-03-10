@@ -8,7 +8,7 @@ const coupleSchema = new Schema(
             type: Schema.Types.ObjectId}
         ],
         task: [
-            { type: Schema.Types.ObjectId }
+            { type: Schema.Types.ObjectId, ref: "Tasks" }
         ],
         coupleName: { 
             type: String,

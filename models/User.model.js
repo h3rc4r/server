@@ -19,12 +19,10 @@ const userSchema = new Schema(
       required: [true, "Name is required."],
     },
     couple:
-      [
         {
-          type:
-            Schema.Types.ObjectId //////////// Id de los nombres a + b
+          type: Schema.Types.ObjectId, 
+          ref: "Couple"
         }
-      ]
 
   },
   {
