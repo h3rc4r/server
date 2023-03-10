@@ -19,7 +19,6 @@ const userSchema = new Schema(
       required: [true, "Name is required."],
     },
     couple:
-<<<<<<< HEAD
       
         {
           type:
@@ -27,12 +26,6 @@ const userSchema = new Schema(
             ref:"Couple"
         }
       
-=======
-        {
-          type: Schema.Types.ObjectId, 
-          ref: "Couple"
-        }
->>>>>>> dev
 
   },
   {
