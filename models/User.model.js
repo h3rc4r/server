@@ -22,7 +22,7 @@ const userSchema = new Schema(
       [
         {
           type:
-            Schema.Types.ObjectId
+            Schema.Types.ObjectId //////////// Id de los nombres a + b
         }
       ]
 
