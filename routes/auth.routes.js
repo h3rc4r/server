@@ -126,6 +126,17 @@ router.post("/login", (req, res, next) => {
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
 });
 
+router.get("/logout", isAuthenticated, (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).render("/logout", { errorMessage: err.message });
+      return;
+    }
+    res.redirect("/login");
+  });
+});
+
+
 // GET  /auth/verify  -  Used to verify JWT stored on the client
 router.get("/verify", isAuthenticated, (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
