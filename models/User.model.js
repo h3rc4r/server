@@ -20,11 +20,18 @@ const userSchema = new Schema(
     },
     points: Number,
     prize: String,
+    avatar: {
+      type: String,
+      default: "https://example.com/default-avatar.jpg",
+    },
     couple:
+      
         {
-          type: Schema.Types.ObjectId, 
-          ref: "Couple"
+          type:
+            Schema.Types.ObjectId,
+            ref:"Couple"
         }
+      
 
   },
   {
