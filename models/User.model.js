@@ -18,7 +18,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    avatar: {
+      type: String,
+      default: "https://example.com/default-avatar.jpg",
+    },
     couple:
+<<<<<<< HEAD
       
         {
           type:
@@ -26,6 +31,12 @@ const userSchema = new Schema(
             ref:"Couple"
         }
       
+=======
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Couple"
+    }
+>>>>>>> dev
 
   },
   {

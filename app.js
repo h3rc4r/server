@@ -10,6 +10,8 @@ require("./db");
 const express = require("express");
 
 const app = express();
+const router = express.Router();
+// const { Router } = require("express");
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
@@ -17,6 +19,8 @@ require("./config")(app);
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
+// const profileRoutes = require("./routes/profile.routes");
+// app.use("/avatar", profileRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
@@ -26,6 +30,9 @@ const profileRoutes = require("./routes/profile.routes");
 app.use("/profile", profileRoutes);
 const coupleRoutes = require("./routes/couple.routes");
 app.use("/couple", coupleRoutes);
+const uploadRouter = require("./routes/upload.routes");
+app.use("/upload",uploadRouter);
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
