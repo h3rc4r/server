@@ -14,3 +14,14 @@ router.put("/edit/:idUser", isAuthenticated, (req, res, next) => {
     .catch(err => next(err))
   })
 module.exports = router
+
+router.get("/:id", isAuthenticated, (req, res, next)=>{
+let id = req.params.id; 
+User.findById(id)
+.then((data)=>{
+  res.json(data);
+})
+.catch((err)=>{
+  console.log(err)
+})
+})

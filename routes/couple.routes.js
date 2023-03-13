@@ -19,7 +19,7 @@ router.post("/new", isAuthenticated, (req, res, next) => {
     return User.findByIdAndUpdate(data.couple.users[1], {couple: data.couple._id}, {new:true})
   })
   .then((data)=>{
-    console.log(data)
+    console.log("Inside new-couple route")
   })
   .catch(err => next(err));
 });

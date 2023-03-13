@@ -18,6 +18,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    points: Number,
+    prize: String,
     couple:
         {
           type: Schema.Types.ObjectId, 
