@@ -16,15 +16,40 @@ router.put("/edit/:idUser", isAuthenticated, (req, res, next) => {
   })
 
 
-router.get("/:id", isAuthenticated, (req, res, next)=>{
-let id = req.params.id; 
-User.findById(id)
-.then((data)=>{
-  res.json(data);
-})
-.catch((err)=>{
+  router.get("/points/:id", 
+  isAuthenticated, 
+  (req, res, next)=>{
+  let id = req.params.id; 
+  User.findById(id)
+  .then((data)=>{
+    return res.json(data.points)
+  })
+  .catch((err)=>{
   console.log(err)
+  })
 })
+
+
+
+
+router.get("/:id", 
+isAuthenticated, 
+(req, res, next)=>{
+  let updatedUser = {}
+  let id = req.params.id; 
+  User.findById(id)
+  .populate("couple")
+  .then((data)=>{
+    updatedUser = data
+    return Couple.findById(data.couple._id).populate("task")
+  })
+  .then((data)=>{
+    updatedUser.couple.task= data.task
+    res.json(updatedUser)
+  })
+  .catch((err)=>{
+  console.log(err)
+  })
 })
 
 module.exports = router

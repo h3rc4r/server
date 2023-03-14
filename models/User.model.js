@@ -18,11 +18,11 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
-    points: Number,
+    points: {type: Number, default: 0},
     prize: String,
     avatar: {
       type: String,
-      default: "https://example.com/default-avatar.jpg",
+      default: "https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg",
     },
     couple:
       

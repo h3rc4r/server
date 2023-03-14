@@ -96,6 +96,7 @@ router.post("/login", (req, res, next) => {
   User.findOne({ email })
   .populate("couple")
     .then((foundUser) => {
+
       if (!foundUser) {
         // If the user is not found, send an error response
         res.status(401).json({ message: "User not found." });
@@ -106,6 +107,7 @@ router.post("/login", (req, res, next) => {
       const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (passwordCorrect) {
+
         // Deconstruct the user object to omit the password
         const { _id, email, name, couple } = foundUser;
 
@@ -140,12 +142,11 @@ router.get("/logout", isAuthenticated, (req, res, next) => {
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
 router.get("/verify", isAuthenticated, (req, res, next) => {
+
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
-  // console.log(`req.payload`, req.payload);
-
-  // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
+  // Send back the token payload object containing the user data
 });
 
 module.exports = router;

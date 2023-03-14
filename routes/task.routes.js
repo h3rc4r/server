@@ -2,10 +2,10 @@ const router = require("express").Router();
 const Task = require("../models/Task.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Couple = require("../models/Couple.model")
+const User = require("../models/User.model");
 
 router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   const {coupleId}=req.params;
-  console.log(coupleId)
   Couple.findById(coupleId)
   .populate("task")
   .then(response => {
@@ -17,18 +17,24 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
 
   router.post("/:coupleId/new", isAuthenticated, (req, res, next) => {
     const {coupleId} = req.params;
-    const { title, value } = req.body;
-    Task.create({ title, value})
-      .then(response => {
-        return response
+    const {tasks, prize, userId} = req.body;
+    for(let i =0; i<tasks.length; i++){
+      let title =  tasks[i].title
+      let value = tasks[i].value
+      Task.create({ title, value})
+      .then(data => {
+         return Couple.findByIdAndUpdate(coupleId, { $push: {task: data._id} }, {new: true})
       })
       .then((data)=>{
-        return Couple.findByIdAndUpdate(coupleId, { $push: {task: data} }, {new: true})
+        return User.findByIdAndUpdate(userId, { prize}, {new: true})
       })
       .then((data)=>{
-        res.json(data)
+       res.json(data) 
       })
-      .catch(err => next(err))
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
   });
 
 router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
