@@ -17,7 +17,7 @@ router.put("/edit/:idUser", isAuthenticated, (req, res, next) => {
 
 
   router.get("/points/:id", 
-  isAuthenticated, 
+  // isAuthenticated, 
   (req, res, next)=>{
   let id = req.params.id; 
   User.findById(id)
