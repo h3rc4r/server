@@ -29,7 +29,7 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
         return User.findByIdAndUpdate(userId, { prize}, {new: true})
       })
       .then((data)=>{
-       res.json(data) 
+       console.log("INSIDE TASKS ROUTE") 
       })
       .catch((err)=>{
         console.log(err)
