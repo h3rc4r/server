@@ -14,28 +14,24 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
     .catch((err) => next(err));
 }),
   router.post("/:coupleId/new", isAuthenticated, (req, res, next) => {
-    const { coupleId } = req.params;
-    const { tasks, prize, userId } = req.body;
-    for (let i = 0; i < tasks.length; i++) {
-      let title = tasks[i].title;
-      let value = tasks[i].value;
-      Task.create({ title, value })
-        .then((data) => {
-          return Couple.findByIdAndUpdate(
-            coupleId,
-            { $push: { task: data._id } },
-            { new: true }
-          );
-        })
-        .then((data) => {
-          return User.findByIdAndUpdate(userId, { prize }, { new: true });
-        })
-        .then((data) => {
-          res.json(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    const {coupleId} = req.params;
+    const {tasks, prize, userId} = req.body;
+    for(let i =0; i<tasks.length; i++){
+      let title =  tasks[i].title
+      let value = tasks[i].value
+      Task.create({ title, value})
+      .then(data => {
+         return Couple.findByIdAndUpdate(coupleId, { $push: {task: data._id} }, {new: true})
+      })
+      .then((data)=>{
+        return User.findByIdAndUpdate(userId, { prize}, {new: true})
+      })
+      .then((data)=>{
+       console.log("INSIDE TASKS ROUTE") 
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     }
   });
 

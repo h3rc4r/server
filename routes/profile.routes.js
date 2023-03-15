@@ -43,11 +43,17 @@ isAuthenticated,
   .populate("couple")
   .then((data)=>{
     updatedUser = data
-    return Couple.findById(data.couple._id).populate("task")
+    if(data.couple){
+      return Couple.findById(data.couple._id).populate("task")
+    }else{
+      res.json(data)
+    }
   })
   .then((data)=>{
-    updatedUser.couple.task= data.task
-    res.json(updatedUser)
+    if(data){
+      updatedUser.couple.task= data.task
+      res.json(updatedUser)
+    }
   })
   .catch((err)=>{
   console.log(err)
