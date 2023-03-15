@@ -43,3 +43,11 @@ const userSchema = new Schema(
 const User = model("User", userSchema);
 
 module.exports = User;
+
+
+    // userSchema.statics.updatePoints = async function(userId) {
+    //   const Task = require('./task.model');
+    //   const tasks = await Task.find({ user: userId });
+    //   const sum = tasks.reduce((acc, task) => acc + task.value, 0);
+    //   await this.findByIdAndUpdate(userId, { points: sum });
+    // };

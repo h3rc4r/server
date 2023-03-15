@@ -4,11 +4,13 @@ const Couple = require("../models/Couple.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 
+
 router.put("/edit/:idUser", isAuthenticated, (req, res, next) => {
     const {idUser}=req.params;
     const{couple,avatar}=req.body;
-    User.findByIdAndUpdate(idUser, {couple},{avatar}, {new:true})
+    User.findByIdAndUpdate(idUser, {couple},{avatar},{points:couple.task.value}, {new:true})
     .then((result) =>{
+      console.log("taskid", )
       res.json(result);
       
     })
