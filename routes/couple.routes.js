@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User.model");
 const Couple = require("../models/Couple.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
+const Task = require("../models/Task.model");
 
 
 router.post("/new", isAuthenticated, (req, res, next) => {
@@ -26,3 +27,5 @@ router.post("/new", isAuthenticated, (req, res, next) => {
 
 
 module.exports = router
+
+

@@ -68,13 +68,13 @@ router.post("/signup", (req, res, next) => {
 
       // Create a new object that doesn't expose the password
       const user = { email, name, _id };
-      transporter.sendMail({
-        from: `"LADIARIASERVICE" <${process.env.EMAIL_ADDRESS}>`,
-        to: email,
-        subject: "HOLA, bienvenido a la Diaria, te haz registrado con exito",
-        text: "message",
-        // html: templates.templateExample("hola mundo")
-      })
+      // transporter.sendMail({
+      //   from: `"LADIARIASERVICE" <${process.env.EMAIL_ADDRESS}>`,
+      //   to: email,
+      //   subject: "HOLA, bienvenido a la Diaria, te haz registrado con exito",
+      //   text: "message",
+      //   // html: templates.templateExample("hola mundo")
+      // })
 
       // Send a json response containing the user object
       res.status(201).json({ user: user });

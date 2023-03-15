@@ -39,12 +39,17 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
 
 router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
   const {idTask}=req.params;
-  const{checked}=req.body;
+  const{checked, user}=req.body;
+  console.log("CHECKED:", checked, "idtask:", idTask,"USERID:", user)
   console.log(idTask, checked)
-  Task.findByIdAndUpdate(idTask, {checked:checked}, {new:true})
+  Task.findByIdAndUpdate(idTask, {checked:checked, user:user},{new:true})
   .then((result) =>{
+    console.log(result)
     res.json(result);
-    
+  })
+    .then((data)=>{
+  return Task.findByIdAndUpdate(id, {task:data._id}, {new:true})
+  .populate("task")
   })
   .catch(err => next(err))
 })
