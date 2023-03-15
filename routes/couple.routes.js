@@ -20,10 +20,6 @@ router.post("/new", isAuthenticated, (req, res, next) => {
     return User.findByIdAndUpdate(data.couple.users[1], {couple: data.couple._id}, {new:true})
   })
   .then((data)=>{
-  return Task.findByIdAndUpdate(id, {task:data._id}, {new:true})
-  .populate("task")
-  })
-  .then((data)=>{
     console.log("Inside new-couple route")
   })
   .catch(err => next(err));

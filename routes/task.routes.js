@@ -2,9 +2,10 @@ const router = require("express").Router();
 const Task = require("../models/Task.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Couple = require("../models/Couple.model")
+const User = require("../models/User.model")
 
-router.get("/:coupleId", isAuthenticated, (req, res, next) => {
-  const {coupleId}=req.params;
+router.get("/", isAuthenticated, (req, res, next) => {
+  const {coupleId}=req.query;
   console.log(coupleId)
   Couple.findById(coupleId)
   .populate("task")
@@ -33,12 +34,17 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
 
 router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
   const {idTask}=req.params;
-  const{checked}=req.body;
+  const{checked, user}=req.body;
+  console.log("CHECKED:", checked, "idtask:", idTask,"USERID:", user)
   console.log(idTask, checked)
-  Task.findByIdAndUpdate(idTask, {checked:checked}, {new:true})
+  Task.findByIdAndUpdate(idTask, {checked:checked, user:user},{new:true})
   .then((result) =>{
+    console.log(result)
     res.json(result);
-    
+  })
+    .then((data)=>{
+  return Task.findByIdAndUpdate(id, {task:data._id}, {new:true})
+  .populate("task")
   })
   .catch(err => next(err))
 })
