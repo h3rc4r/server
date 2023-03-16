@@ -8,11 +8,20 @@ const { trusted } = require("mongoose");
 router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   const { coupleId } = req.params;
   Couple.findById(coupleId)
+<<<<<<< HEAD
     .populate("task")
     .then((response) => {
       res.json(response.task);
     })
     .catch((err) => next(err));
+=======
+  .populate("task")
+  .then(response => {
+      console.log(response)
+      res.json(response)
+  })
+  .catch(err => next(err));
+>>>>>>> rocio
 }),
   router.post("/:coupleId/new", isAuthenticated, (req, res, next) => {
     const {coupleId} = req.params;
@@ -36,6 +45,7 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
     }
   });
 
+<<<<<<< HEAD
 router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
   //const { idTask } = req.params;
   const { checked, user,_id } = req.body;
@@ -75,6 +85,40 @@ router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
         
       }
       // return User.findById(user);
+=======
+  router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
+    const { idTask } = req.params;
+    const { checked, user } = req.body;
+    let value = 0;
+    Task.findByIdAndUpdate(
+      idTask,
+      req.body,
+      { new: true }
+    )
+      .then((result) => {
+        if (result.checked) {
+          User.findById(result.user)
+          .then(foundUser => {
+            User.findByIdAndUpdate(foundUser._id, { points: foundUser.points + result.value }, { new: true })
+            .then(updatedUser => console.log(updatedUser)).catch(err => console.log(err));
+          }).catch(err => console.log(err))
+      
+        } else {
+          User.findById(result.user)
+          .then((foundUser) => {
+            User.findByIdAndUpdate(foundUser._id, { points: foundUser.points - result.value }, { new: true })
+            .then((updatedUser) => {
+              return Task.findByIdAndUpdate(result._id,{user:null},{new:true})})
+              .then((data)=>console.log(data))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err))
+          
+        }
+      })
+      .catch((err) => next(err));
+  });
+>>>>>>> rocio
 
       //res.json(result);
     })
