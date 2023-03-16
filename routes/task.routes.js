@@ -70,7 +70,7 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   });
 
       //res.json(result);
-    })
+    // })
 
     // .then((result)=>{
     //   console.log("console log",result)
@@ -81,8 +81,8 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
     // return Task.findByIdAndUpdate(id, {task:data._id}, {new:true})
     // .populate("task")
     // })
-    .catch((err) => next(err));
-});
+//     .catch((err) => next(err));
+// });
 
 router.delete("/delete/:idTask", isAuthenticated, isAdmin, (req, res, next) => {
  const {idTask}= req.params
