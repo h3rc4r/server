@@ -3,7 +3,8 @@ const Task = require("../models/Task.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Couple = require("../models/Couple.model");
 const User = require("../models/User.model");
-
+const {isAdmin}= require("../middleware/admin.middleware");
+const { trusted } = require("mongoose");
 router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   const { coupleId } = req.params;
   Couple.findById(coupleId)
@@ -90,12 +91,15 @@ router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete("/delete/:idTask", isAuthenticated, (req, res, next) => {
-  const { idTask } = req.params;
+router.delete("/delete/:idTask", isAuthenticated, isAdmin, (req, res, next) => {
+ const {idTask}= req.params
+
   Task.findByIdAndDelete(idTask)
-    .then((response) => {
-      res.json(response);
+  // console.log("taskid..",idTask)
+    .then((resultDelete) => {
+      res.json(resultDelete);
     })
     .catch((err) => next(err));
 });
+
 module.exports = router;

@@ -18,20 +18,19 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
-    points: {type: Number, default: 0},
+    points: { type: Number, default: 0 },
     prize: String,
     avatar: {
       type: String,
       default: "https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg",
     },
-    couple:
-      
-        {
-          type:
-            Schema.Types.ObjectId,
-            ref:"Couple"
-        }
-      
+    couple: {
+      type:
+        Schema.Types.ObjectId,
+      ref: "Couple"
+    },
+    
+    isAdmin: { type: Boolean, default: false, }
 
   },
   {

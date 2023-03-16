@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const transporter = require("../config/transporter.config");
-
-// ℹ️ Handles password encryption
+const templates = require("../templates/template")
 const bcrypt = require("bcrypt");
 
 // ℹ️ Handles password encryption
@@ -68,13 +67,16 @@ router.post("/signup", (req, res, next) => {
 
       // Create a new object that doesn't expose the password
       const user = { email, name, _id };
-      // transporter.sendMail({
-      //   from: `"LADIARIASERVICE" <${process.env.EMAIL_ADDRESS}>`,
-      //   to: email,
-      //   subject: "HOLA, bienvenido a la Diaria, te haz registrado con exito",
-      //   text: "message",
-      //   // html: templates.templateExample("hola mundo")
-      // })
+      transporter.sendMail({
+        from: `"ConviMillas" <${process.env.EMAIL_ADDRESS}>`,
+        to: email,
+        subject:"correo de Bienvenida",
+        message:name,
+        html: templates.templateExample(name)
+          
+      })
+      .then((info) => res.render(name, { email, message, info }))
+          .catch((error) => console.log(error))
 
       // Send a json response containing the user object
       res.status(201).json({ user: user });
@@ -94,7 +96,7 @@ router.post("/login", (req, res, next) => {
 
   // Check the users collection if a user with the same email exists
   User.findOne({ email })
-  .populate("couple")
+    .populate("couple")
     .then((foundUser) => {
 
       if (!foundUser) {
