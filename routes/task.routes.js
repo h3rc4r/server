@@ -9,7 +9,8 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   Couple.findById(coupleId)
   .populate("task")
   .then(response => {
-      res.json(response.task)
+      console.log(response)
+      res.json(response)
   })
   .catch(err => next(err));
 }),
@@ -37,17 +38,38 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
     }
   });
 
-router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
-  const {idTask}=req.params;
-  const{checked}=req.body;
-  console.log(idTask, checked)
-  Task.findByIdAndUpdate(idTask, {checked:checked}, {new:true})
-  .then((result) =>{
-    res.json(result);
-    
-  })
-  .catch(err => next(err))
-})
+  router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
+    const { idTask } = req.params;
+    const { checked, user } = req.body;
+    let value = 0;
+    Task.findByIdAndUpdate(
+      idTask,
+      req.body,
+      { new: true }
+    )
+      .then((result) => {
+        if (result.checked) {
+          User.findById(result.user)
+          .then(foundUser => {
+            User.findByIdAndUpdate(foundUser._id, { points: foundUser.points + result.value }, { new: true })
+            .then(updatedUser => console.log(updatedUser)).catch(err => console.log(err));
+          }).catch(err => console.log(err))
+      
+        } else {
+          User.findById(result.user)
+          .then((foundUser) => {
+            User.findByIdAndUpdate(foundUser._id, { points: foundUser.points - result.value }, { new: true })
+            .then((updatedUser) => {
+              return Task.findByIdAndUpdate(result._id,{user:null},{new:true})})
+              .then((data)=>console.log(data))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err))
+          
+        }
+      })
+      .catch((err) => next(err));
+  });
 
 router.delete("/delete/:idTask", isAuthenticated, (req, res, next) => {
   const {idTask} = req.params;
