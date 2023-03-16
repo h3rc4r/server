@@ -8,20 +8,11 @@ const { trusted } = require("mongoose");
 router.get("/:coupleId", isAuthenticated, (req, res, next) => {
   const { coupleId } = req.params;
   Couple.findById(coupleId)
-<<<<<<< HEAD
     .populate("task")
     .then((response) => {
       res.json(response.task);
     })
     .catch((err) => next(err));
-=======
-  .populate("task")
-  .then(response => {
-      console.log(response)
-      res.json(response)
-  })
-  .catch(err => next(err));
->>>>>>> rocio
 }),
   router.post("/:coupleId/new", isAuthenticated, (req, res, next) => {
     const {coupleId} = req.params;
@@ -45,47 +36,6 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
     }
   });
 
-<<<<<<< HEAD
-router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
-  //const { idTask } = req.params;
-  const { checked, user,_id } = req.body;
-  console.log("Req.body: ", req.body)
-  let value = 0;
-  // console.log("CHECKED:", checked, "idtask:", idTask,"USERID:", user)
-  // console.log(idTask, checked)
-  Task.findByIdAndUpdate(
-    _id,
-    req.body,
-    { new: true }
-  )
-    .then((result) => {
-      console.log(result)
-      if (result.checked) {
-        User.findById(result.user)
-        .then(foundUser => {
-          console.log(foundUser)
-          User.findByIdAndUpdate(foundUser._id, { points: foundUser.points + result.value }, { new: true })
-          .then(updatedUser => console.log(updatedUser)).catch(err => console.log(err));
-        }).catch(err => console.log(err))
-    
-      } else {
-        console.log("no Check")
-        console.log(result.user)
-        User.findById(result.user)
-        .then(foundUser => {
-          console.log(foundUser)
-          User.findByIdAndUpdate(foundUser._id, { points: foundUser.points - result.value }, { new: true })
-          .then(updatedUser => 
-            console.log(updatedUser))
-            return Task.findByIdAndUpdate(result._id,{user:null},{new:true})
-            .then((data)=>console.log(data))
-            .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err))
-        
-      }
-      // return User.findById(user);
-=======
   router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
     const { idTask } = req.params;
     const { checked, user } = req.body;
@@ -118,7 +68,6 @@ router.put("/edit/:idTask", isAuthenticated, (req, res, next) => {
       })
       .catch((err) => next(err));
   });
->>>>>>> rocio
 
       //res.json(result);
     })
