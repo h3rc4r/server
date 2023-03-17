@@ -50,7 +50,7 @@ router.get("/:coupleId", isAuthenticated, (req, res, next) => {
           User.findById(result.user)
           .then(foundUser => {
             User.findByIdAndUpdate(foundUser._id, { points: foundUser.points + result.value }, { new: true })
-            .then(updatedUser => console.log(updatedUser)).catch(err => console.log(err));
+            .then(updatedUser =>res.json(updatedUser)).catch(err => console.log(err));
           }).catch(err => console.log(err))
       
         } else {
