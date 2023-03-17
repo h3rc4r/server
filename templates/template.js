@@ -305,7 +305,7 @@ function templateExample (name) {
 
 
                                         <div style="line-height: 26px;">
-                                            <a href="https://genuine-hotteok-2cd492.netlify.app/"
+                                            <a href="https://convimillas.netlify.app/"
                                                 style="color: #ffffff; text-decoration: none;">GET STARTED</a>
                                         </div>
                                     </td>
