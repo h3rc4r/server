@@ -18,7 +18,7 @@ Cada jugador tendra una vista con los resultados de los minijuegos, victorias y 
 --------------
 ## Deployment 
 
-Puede verificar la applicacion completamente implementada  [aqui](https://convimillas.herokuapp.com/)
+Puede verificar la applicacion completamente implementada  [aqui](https://convimillas-new-server.onrender.com)
 
 
 ## Installation Guide
